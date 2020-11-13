@@ -31,5 +31,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     ]
 
+    console.log(window.location.search);
+    console.log(new URLSearchParams(window.location.search));
+    console.log(new URLSearchParams(window.location.search).get('type')); // aller chercher des paramètres de de la page html.
 
+    var type = new URLSearchParams(window.location.search).get('type') || "pizza"; //on va chercher une variable qui se trouve dans la barre d'adresse ou pizza
+    var infoPage = informations.find( x => x.id === type); // trouver dans le tableau information le id de type.
+    console.log(infoPage);
+
+    var title = document.querySelector('.main-title');
+    title.innerHTML = infoPage.title;
+
+    var slogan = document.querySelector('.sub-title');
+    slogan.innerHTML = infoPage.slogan;
+
+    var description = document.querySelector('.sub-description p');
+    description.innerHTML = infoPage.description;
+
+    var image = document.querySelector('.sub-image img'); // créer une variable équivalente aux images de la classe .sub-image dans le html.
+    image.src = infoPage.image; // on change la source de l'image pour celle qu'on veut.
+
+    var list = document.querySelector('.type-list');
+    list.innerHTML = ""; // enlève la liste dans le UL.
+
+    for(var i = 0; i < infoPage.type.length; i++){
+        var li = document.createElement('li'); // créer un li dans le ul.
+        li.innerHTML = infoPage.type[i]; //met du code dans la balise dans le html
+
+        list.appendChild(li); // lier l'enfant dans la liste du ul.
+    }
 });
